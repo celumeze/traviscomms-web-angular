@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800");
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Montserrat", "sans-serif";
+}
+body {
+    background-color: #000000;
+}
+html, body { height: 100%; }
+
+body { margin: 0; }
+
+.spinner_container {
+    border-radius: 10px;
+    height: 70px;
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 70px;
+    z-index: 3;
+    opacity: 0.5;
+}
+
