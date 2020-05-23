@@ -194,8 +194,8 @@
             </div>
             <div formGroupName="subscriptionTypeGroup">
                 <div *ngFor="let subscriptiontype of subscriptionTypes; let i = index" class="cb-wrapper" [ngClass]="{'cb-vertical': tmp }">
-                    <mat-checkbox id="trialSubId"  [color]="primary" *ngIf="subscriptiontype.price === 0" formControlName="trialSubscriptionType" (click)="setSubscriptionType('trial')">{{subscriptiontype.name}}</mat-checkbox>
-                    <mat-checkbox id="paidSubId"  [color]="primary" *ngIf="subscriptiontype.price > 0" formControlName="paidSubscriptionType" (click)="setSubscriptionType('paid')">{{subscriptiontype.name}}</mat-checkbox>
+                    <mat-checkbox id="trialSubId"  *ngIf="subscriptiontype.price === 0" formControlName="trialSubscriptionType" (click)="setSubscriptionType('trial')">{{subscriptiontype.name}}</mat-checkbox>
+                    <mat-checkbox id="paidSubId"  *ngIf="subscriptiontype.price > 0" formControlName="paidSubscriptionType" (click)="setSubscriptionType('paid')">{{subscriptiontype.name}}</mat-checkbox>
                 </div>
                 <mat-error *ngIf="!registerForm.get('subscriptionTypeGroup.trialSubscriptionType').value && !registerForm.get('subscriptionTypeGroup.paidSubscriptionType').value">
                     Please select a subscription
@@ -203,7 +203,7 @@
             </div>
             <br>
             <div class="cb-wrapper" [ngClass]="{'cb-vertical': tmp }">
-                <mat-checkbox  [color]="tertiary">Please accept our <a href="#">Terms</a> and <a href="#">Privacy</a> statements.</mat-checkbox>
+                <mat-checkbox>Please accept our <a href="#">Terms</a> and <a href="#">Privacy</a> statements.</mat-checkbox>
             </div>
             <br>
             <div mat-dialog-actions layout="row">

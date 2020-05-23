@@ -133,5 +133,10 @@
       }
     }
   },
-  "defaultProject": "TravisCommsWebUI"
+  "defaultProject": "TravisCommsWebUI",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

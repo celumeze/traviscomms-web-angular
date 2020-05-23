@@ -8,7 +8,7 @@ import { AccountHolder } from '../models/accountholder';
 import { RegisterService } from '../register/register-service.service';
 import { ResponseMessage } from '../models/responsemessage';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../core/auth-service.component.ts';
 
 function subscriptionSelectionCheck(
