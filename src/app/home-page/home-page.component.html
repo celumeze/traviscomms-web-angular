@@ -18,7 +18,7 @@
                 <p class="text-light">your cloud communication provider such as Twilio,</p>                
                 <p class="text-light">Whatsapp Business, Vonage and more.</p>
             </div>
-			<button class="btn btn-sm-lg download-btn-first wow fadeInLeft animated col-sm-2" data-wow-delay="0.85s" onclick="$('#fh5co-download').goTo();return false;" style="margin-top: 100px; font-size: 25px;">Login In</button>			
+			<button *ngIf="!isLoggedIn" class="btn btn-sm-lg download-btn-first wow fadeInLeft animated col-sm-2" data-wow-delay="0.85s" (click)="login()" style="margin-top: 100px; font-size: 25px;">Login In</button>			
 		</div>
 
 

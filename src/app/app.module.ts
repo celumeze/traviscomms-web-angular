@@ -23,6 +23,14 @@ import { PasswordStrengthComponent } from './password-strength/password-strength
 import { HttpClientModule } from '@angular/common/http';
 import { NavHomeComponent } from './nav-home/nav-home.component';
 import { FooterHomeComponent } from './footer-home/footer-home.component';
+import { CoreModule } from './core/core.module';
+import { SigninRedirectCallbackComponent } from './home-page/signin-redirect-callback.component';
+import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -30,13 +38,16 @@ import { FooterHomeComponent } from './footer-home/footer-home.component';
     HomePageComponent,
     PasswordStrengthComponent,
     NavHomeComponent,
-    FooterHomeComponent
+    FooterHomeComponent,
+    SigninRedirectCallbackComponent,
+    MainDashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    CoreModule,
     MatButtonModule,
     MatToolbarModule,
     MatDialogModule,
@@ -47,7 +58,12 @@ import { FooterHomeComponent } from './footer-home/footer-home.component';
     MatCheckboxModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
