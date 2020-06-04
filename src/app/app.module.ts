@@ -1,68 +1,84 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HomePageComponent } from './home-page/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTableModule } from '@angular/material/table';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { ReactiveFormsModule } from '@angular/forms';
+import {
+  CommonModule
+} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { Routes, RouterModule } from '@angular/router';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgmCoreModule } from '@agm/core';
+import { DataTablesModule } from 'angular-datatables';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
+import { FullComponent } from './layouts/full/full.component';
+import { BlankComponent } from './layouts/blank/blank.component';
+
+import { NavigationComponent } from './shared/header-navigation/navigation.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { BreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
+
+import { Approutes } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { SpinnerComponent } from './shared/spinner.component';
+
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { HomePageComponent } from './home-page/home-page.component';
+import { SubscriptionTypeModule } from './subscriptiontype/subscriptiontype.module';
 import { PasswordStrengthComponent } from './password-strength/password-strength.component';
-import { HttpClientModule } from '@angular/common/http';
-import { NavHomeComponent } from './nav-home/nav-home.component';
-import { FooterHomeComponent } from './footer-home/footer-home.component';
+import { RegisterModule } from './register/register.module';
 import { CoreModule } from './core/core.module';
-import { SigninRedirectCallbackComponent } from './home-page/signin-redirect-callback.component';
-import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { LayoutModule } from '@angular/cdk/layout';
+import { HomeFooterComponent } from './home-footer/home-footer.component';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true,
+  wheelSpeed: 1,
+  wheelPropagation: true,
+  minScrollbarLength: 20
+};
 
 @NgModule({
   declarations: [
     AppComponent,
+    SpinnerComponent,
+    FullComponent,
+    BlankComponent,
+    NavigationComponent,
+    BreadcrumbComponent,
+    SidebarComponent,
     HomePageComponent,
     PasswordStrengthComponent,
-    NavHomeComponent,
-    FooterHomeComponent,
-    SigninRedirectCallbackComponent,
-    MainDashboardComponent
+    HomeFooterComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
     CoreModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatDialogModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DataTablesModule,
     HttpClientModule,
-    MatSnackBarModule,
-    MatProgressSpinnerModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    LayoutModule
+    NgbModule,
+    Ng2SearchPipeModule,
+    PerfectScrollbarModule,
+    SubscriptionTypeModule,
+    RegisterModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    AgmCoreModule.forRoot({ apiKey: 'AIzaSyDoliAneRffQDyA7Ul9cDk3tLe7vaU4yP8' }),
+    RouterModule.forRoot(Approutes),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

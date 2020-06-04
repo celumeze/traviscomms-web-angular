@@ -1,142 +1,154 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
-    "TravisCommsWebUI": {
-      "projectType": "application",
-      "schematics": {},
-      "root": "",
-      "sourceRoot": "src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/TravisCommsWebUI",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
-            "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/css/animate.css",
-              "src/css/owl.theme.default.min.css",
-              "src/styles.css"
-            ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.js",
-              "node_modules/bootstrap/dist/js/bootstrap.js",
-              "src/js/owl.carousel.js",
-              "src/js/site.js",
-              "src/js/main.js",
-              "src/js/wow.min.js"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "elite-admin-angular": {
+            "root": "",
+            "sourceRoot": "src",
+            "projectType": "application",
+            "prefix": "app",
+            "schematics": {},
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "aot": true,
+                        "outputPath": "dist/elite-admin-angular",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "src/tsconfig.app.json",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.css",
+                            "node_modules/chartist/dist/chartist.css",
+                            "node_modules/c3/c3.min.css",
+                            "node_modules/datatables.net-dt/css/jquery.dataTables.css",
+                            "node_modules/ngx-toastr/toastr.css",
+                            "node_modules/quill/dist/quill.snow.css",
+                            "node_modules/quill/dist/quill.bubble.css",
+                            "node_modules/angular-calendar/css/angular-calendar.css",
+                            "node_modules/dragula/dist/dragula.css",
+                            "node_modules/@swimlane/ngx-datatable/index.css",
+                            "node_modules/@swimlane/ngx-datatable/themes/material.css",
+                            "node_modules/@swimlane/ngx-datatable/assets/icons.css",
+                            "src/assets/vendor/css-chart.css",
+                            "src/assets/scss/style.scss"
+                        ],
+                        "scripts": [ 
+                            "src/assets/vendor/jquery/jquery.min.js",
+                            "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
+                            "src/assets/vendor/jquery.easing/jquery.easing.min.js",
+                            "src/assets/vendor/php-email-form/validate.js",
+                            "src/assets/vendor/waypoints/jquery.waypoints.min.js",
+                            "src/assets/vendor/counterup/counterup.min.js",
+                            "src/assets/vendor/isotope-layout/isotope.pkgd.min.js",
+                            "src/assets/vendor/venobox/venobox.min.js",
+                            "src/assets/vendor/owl.carousel/owl.carousel.min.js",
+                            "src/assets/js/main.js",
+                            "node_modules/jquery/dist/jquery.min.js"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
               "budgets": [
                 {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "6kb"
                 }
-              ]
+              ],
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "aot": true,
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "elite-admin-angular:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "elite-admin-angular:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "elite-admin-angular:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "src/tsconfig.spec.json",
+                        "karmaConfig": "src/karma.conf.js",
+                        "styles": [
+                            "src/styles.css"
+                        ],
+                        "scripts": [],
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "src/tsconfig.app.json",
+                            "src/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
             }
-          }
         },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "TravisCommsWebUI:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "TravisCommsWebUI:build:production"
+        "elite-admin-angular-e2e": {
+            "root": "e2e/",
+            "projectType": "application",
+            "architect": {
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "e2e/protractor.conf.js",
+                        "devServerTarget": "elite-admin-angular:serve"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": "e2e/tsconfig.e2e.json",
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
             }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "TravisCommsWebUI:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.css"
-            ],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "TravisCommsWebUI:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "TravisCommsWebUI:serve:production"
-            }
-          }
         }
-      }
-    }
-  },
-  "defaultProject": "TravisCommsWebUI",
-  "schematics": {
-    "@schematics/angular:component": {
-      "styleext": "scss"
-    }
-  }
+    },
+    "defaultProject": "elite-admin-angular"
 }

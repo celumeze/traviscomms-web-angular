@@ -1,246 +1,372 @@
 
 
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container-fluid">
 
-<div id="page-wrap">
+      <div class="row justify-content-center">
+        <div class="col-xl-9 d-flex align-items-center justify-content-between">
+          <h1 class="logo"><a href="/home">TravisComms</a></h1>
+          <!-- Uncomment below if you prefer to use an image logo -->
+          <!-- <a href="index.html" class="logo"><img src="assets/homeimages/logo.png" alt="" class="img-fluid"></a>-->
 
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              <li class="active"><a href="#hero">Home</a></li>
+              <li><a href="#providers">Service Providers</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#pricing">Pricing</a></li>
+              <li><a href="#signup">Sign Up</a></li>           
+              <li><a href="#contact">Contact</a></li>
 
-	<!-- ==========================================================================================================
-													   HERO
-		 ========================================================================================================== -->
-
-	<div id="fh5co-hero-wrapper" style="text-align: center; ">        
-	    <app-nav-home></app-nav-home>
-		<div class="container-fluid fh5co-hero-inner">
-			<h1 class="animated fadeIn wow" data-wow-delay="0.4s">Self Service Multi Provider Contact Management Centre</h1>
-            
-            <div class="animated fadeIn wow" data-wow-delay="0.67s" style="text-align: center; margin-top: 100px; margin-bottom: 50px; font-size: 25px; padding: 5px;">
-                <p class="text-light">Cloud hosted solution to power the consumption of</p> 
-                <p class="text-light">your cloud communication provider such as Twilio,</p>                
-                <p class="text-light">Whatsapp Business, Vonage and more.</p>
-            </div>
-			<button *ngIf="!isLoggedIn" class="btn btn-sm-lg download-btn-first wow fadeInLeft animated col-sm-2" data-wow-delay="0.85s" (click)="login()" style="margin-top: 100px; font-size: 25px;">Login In</button>			
-		</div>
-
-
-	</div> <!-- first section wrapper -->
-
-
-	<!-- ==========================================================================================================
-													 Features
-		 ========================================================================================================== -->
-
-	<div class="fh5co-advantages-outer mt-auto">
-		<div class="container-fluid">
-			<h1 class="second-title"><span class="span-features text-color-emphasis ">Features</span></h1>
-
-			<div class="row fh5co-advantages-grid-columns wow animated fadeIn" data-wow-delay="0.36s">
-
-				<div class="col-sm-4">
-					<img class="grid-image" src="/assets/images/twilio.png" alt="Icon-1">
-					<h1 class="grid-title text-light">Twilio</h1>
-					<p class="grid-desc fh5co-hero-inner">Send SMS and make calls on your Twilio subscription or using a shared Twilio subscription.</p>
-				</div>
-
-				<div class="col-sm-4">
-					<img class="grid-image" src="/assets/images/vonage.png" alt="Icon-2">
-					<h1 class="grid-title text-light">Vonage</h1>
-					<p class="grid-desc">Carry out your call centre activities using your Vonage subscription including configuration of IVR for your contacts.</p>
-				</div>
-
-				<div class="col-sm-4">
-					<img class="grid-image" src="/assets/images/azuread.png" alt="Icon-3">
-					<h1 class="grid-title text-light">Azure Active Directory</h1>
-					<p class="grid-desc">Integrate with your Azure Active Directory tenant to leverage your single sign-on capability.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- ==========================================================================================================
-													  Pricing
-		 ========================================================================================================== -->
-
-	<div class="curved-bg-div wow animated fadeIn" data-wow-delay="0.15s">
+            </ul>
+          </nav><!-- .nav-menu -->          
+        </div>
+      </div>
 
     </div>
-        <div id="fh5co-features" class="fh5co-features-outer container-fluid" style="padding-bottom: 150px; padding-top: 100px;">
-                <div class="row">
-                    <div class="col-sm-10">
-                        <div *ngFor="let subscriptiontype of subscriptionTypes; let i = index" class="col-sm-5 mr-3 float-right">
-                            <div *ngIf="subscriptiontype.price === 0" class=" text-center sm-6-content wow animated fadeInRight"  data-wow-delay="0.22s">
-                                <h1>Trial Subscription</h1>
-                                <div class="card text-center wow bounceInDown p-2"> 
-                                    <div class="card-body">
-                                        <div class="bg-white">
-                                            <span class="text-center font-weight-bold">Price  </span>
-                                            <span class="text-center text-darrk">{{subscriptiontype.price}}.00</span>
-                                        </div>
-                                        <br>
-                                        <div class="bg-white">
-                                            <span class="text-center font-weight-bold">Period  </span>
-                                            <span class="text-center text-darrk">{{subscriptiontype.periodInDays}} Days</span>
-                                        </div>
-                                        <br>
-                                        <div class="bg-white">
-                                            <span class="text-center font-weight-bold">Account Users  </span>
-                                            <span class="text-center text-darrk">0</span>
-                                        </div>
-                                        <br>
-                                        <div class="bg-white">
-                                            <span class="text-center font-weight-bold">Number of Contacts  </span>
-                                            <span class="text-center text-darrk">2</span>
-                                        </div>
-                                        <br>                                       
-                                        <br>
-                                        <div class="bg-white">
-                                            <button class="btn btn-lg btn-outline-primary col-sm-5" onclick="$('#fh5co-reviews').goToTrial();return false;">Sign Up</button>
-                                        </div>
-                                    </div>                                           
-                                </div>
-                            </div>
-                            <div *ngIf="subscriptiontype.price > 0"  class="text-center sm-6-content wow animated fadeInRight" data-wow-delay="0.22s">
-                                <h1>Paid Subscription</h1>
-                                <div class="card text-center wow bounceInDown p-2">   
-                                    <div class="card-body">
-                                        <div class="bg-white">
-                                            <span class="text-center font-weight-bold">Price  </span>
-                                            <span class="text-center text-darrk">{{subscriptiontype.price}}.00</span>
-                                        </div>
-                                        <br>
-                                        <div class="bg-white">
-                                            <span class="text-center font-weight-bold">Billing Cycle </span>
-                                            <span class="text-center text-darrk">{{subscriptiontype.periodInDays}} Days</span>
-                                        </div>
-                                        <br>
-                                        <div class="bg-white">
-                                            <span class="text-center font-weight-bold">Account Users  </span>
-                                            <span class="text-center text-darrk">20</span>
-                                        </div>
-                                        <br>
-                                        <div class="bg-white">
-                                            <span class="text-center font-weight-bold">Cost Per Extra User  </span>
-                                            <span class="text-center text-darrk">15.00</span>
-                                        </div>
-                                        <br>                                     
-                                        <br>
-                                        <div class="bg-white">
-                                            <button class="btn btn-lg btn-outline-primary col-sm-5" onclick="$('#fh5co-reviews').goToPaid();return false;">Sign Up</button>
-                                        </div>
-                                    </div>                                           
-                                </div>
-                            </div>
-                        </div>
-                    </div>                                  
-                </div>
-		 <!-- row -->
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-8">
+          <h1>Self Service Multi Provider Contact Management Portal</h1><br>
+          <h2>Cloud hosted solution to power the consumption of your cloud communications provider such as Twilio, Vonage, Unifonic & more</h2>
+          <br>
+          <button *ngIf="!isLoggedIn" class="btn btn-lg btn-primary col-lg-4" type="submit" (click)="login()">Log In</button>
+          <button *ngIf="isLoggedIn" class="btn btn-lg btn-primary col-lg-4" type="submit" (click)="logout()">Log Out</button>
         </div>
-
-
-	<!-- ==========================================================================================================
-													  Create Account
-		 ========================================================================================================== -->
-	
-    <div id="fh5co-reviews" class="fh5co-reviews-outer">
-        <h1 mat-dialog-title>Create your TravisComms Account</h1> 
-        <br> 
-        <form  novalidate [formGroup]="registerForm" (ngSubmit)="createAccount()" style="font-weight:500; text-align: center; background-color: #ffffff;">                                        
-            <div mat-dialog-content>
-             <mat-form-field style="width: 600px;">
-                <mat-label>First Name<span class="text-danger">*</span></mat-label>
-                <input type="text" formControlName="firstName" matInput/>
-             </mat-form-field>
-           </div>
-           <div mat-dialog-content>
-                <mat-form-field style="width: 600px;">
-                    <mat-label>Last Name</mat-label>
-                    <input type="text" formControlName="lastName" matInput/>
-                </mat-form-field>
-           </div>
-           <div mat-dialog-content>
-                <mat-form-field style="width: 600px;">
-                    <mat-label>Email Address<span class="text-danger">*</span></mat-label>
-                    <input type="text" formControlName="emailAddress" matInput/>
-                    <mat-error>
-                        {{ emailValidationMessage }}
-                    </mat-error>
-                </mat-form-field>
-           </div>
-           <div mat-dialog-content>
-                <mat-form-field style="width: 600px;">
-                    <mat-label>Company</mat-label>
-                    <input type="text" formControlName="company" matInput/>
-                </mat-form-field>
-            </div>
-            <div formGroupName="passwordGroup">
-                <div mat-dialog-content>
-                    <mat-form-field style="width: 600px;">
-                        <mat-label>Password<span class="text-danger">*</span></mat-label>
-                        <input type="password" formControlName="password" matInput/>
-                        <app-password-strength class="text-center" (passwordStrength)="passwordValid($event)" [passwordToCheck]="registerForm.get('passwordGroup.password').value"></app-password-strength>
-                        <mat-error>
-                            {{ invalidPasswordMessage }}
-                        </mat-error>
-                    </mat-form-field>
-               </div>
-               <div mat-dialog-content>
-                    <mat-form-field style="width: 600px;">
-                        <mat-label>Confirm Password<span class="text-danger">*</span></mat-label>
-                        <input type="password" formControlName="confirmPassword" matInput/>
-                        <mat-error>
-                            {{ passwordMismatchMessage }}
-                        </mat-error>
-                    </mat-form-field>
-                </div>                
-            </div>
-            <div formGroupName="subscriptionTypeGroup">
-                <div *ngFor="let subscriptiontype of subscriptionTypes; let i = index" class="cb-wrapper" [ngClass]="{'cb-vertical': tmp }">
-                    <mat-checkbox id="trialSubId"  *ngIf="subscriptiontype.price === 0" formControlName="trialSubscriptionType" (click)="setSubscriptionType('trial')">{{subscriptiontype.name}}</mat-checkbox>
-                    <mat-checkbox id="paidSubId"  *ngIf="subscriptiontype.price > 0" formControlName="paidSubscriptionType" (click)="setSubscriptionType('paid')">{{subscriptiontype.name}}</mat-checkbox>
-                </div>
-                <mat-error *ngIf="!registerForm.get('subscriptionTypeGroup.trialSubscriptionType').value && !registerForm.get('subscriptionTypeGroup.paidSubscriptionType').value">
-                    Please select a subscription
-                </mat-error>
-            </div>
-            <br>
-            <div class="cb-wrapper" [ngClass]="{'cb-vertical': tmp }">
-                <mat-checkbox>Please accept our <a href="#">Terms</a> and <a href="#">Privacy</a> statements.</mat-checkbox>
-            </div>
-            <br>
-            <div mat-dialog-actions layout="row">
-                <button [disabled]="!registerForm.valid" type="submit" class="btn btn-lg btn-outline-primary col-sm-2">Sign Up</button>                    
-            </div>
-           <br>
-           <br>
-           <mat-error>
-            {{responseMessage.errorMessage}}
-        </mat-error>
-        <br>
-        </form>
+      </div>
     </div>
-    <mat-spinner class="spinner_container" *ngIf="toggleLoader"></mat-spinner>
-	<!-- ==========================================================================================================
-                                                 Downloads
-    ========================================================================================================== -->
+  </section><!-- End Hero -->
 
-    <!-- <div id="fh5co-download" class="text-dark">
-        <div class="fh5co-reviews-outer">
-            <h1>Download Desktop App</h1> 
+  <main id="main">
+    <!-- ======= Service Providers Section ======= -->
+    <section id="providers" class="services">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Service Providers</h2>          
         </div>
-		<div style="background-color: #ffffff;">
-			<div class="container fh5co-bottom-inner">
-				<div class="row">
-					<div class="text-center">
-						<h1>How to download the app?</h1>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque suscipit, similique animi saepe, ipsam itaque, tempore minus maxime pariatur error unde fugit tenetur.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
 
-   <app-footer-home></app-footer-home>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="icon-box">
+              <div><img class="grid-image" src="../../assets/homeimages/providers/twilio.png" alt="Twilio" width="50" height="50"></div><br>
+              <h4><a href="">Twilio</a></h4>
+              <p>Send SMS and make calls with your Twilio subscription or using a shared Twilio subscription</p> 
+              <br>
+              <br>
+              <a href="#about" class="get-started-btn scrollto" target="">View Pricing</a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+            <div class="icon-box">
+                <div><img class="grid-image" src="../../assets/homeimages/providers/vonage.png" alt="Twilio" width="50" height="50"></div><br>
+              <h4><a href="">Vonage</a></h4>
+              <p>Carry out your call centre activities using your Vonage subscription.</p>
+              <br>
+              <br>
+              <a href="#about" class="get-started-btn scrollto" target="">View Pricing</a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+            <div class="icon-box">
+                <div><img class="grid-image" src="../../assets/homeimages/providers/unifonic.png" alt="Twilio" width="50" height="50"></div><br>
+              <h4><a href="">Unifonic</a></h4>
+              <p>Create schedule for sending sms to your contacts using your Unifonic subscription</p>
+              <br>
+              <br>
+              <a href="#about" class="get-started-btn scrollto" target="">View Pricing</a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+            <div class="icon-box">
+              <div><img class="grid-image" src="../../assets/homeimages/providers/plivo.png" alt="Twilio" width="50" height="50"></div><br>
+              <h4><a href="">Plivo</a></h4>
+              <p>Power your Plivo subscription with our self service application for text and voice communication</p>
+              <br>
+              <br>
+              <a href="#about" class="get-started-btn scrollto" target="">View Pricing</a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+            <div class="icon-box">
+              <div><img class="grid-image" src="../../assets/homeimages/providers/telnyx.png" alt="Twilio" width="50" height="50"></div><br>
+              <h4><a href="">Telnyx</a></h4>
+              <p>Use this portal to consume Telnyx's API and avoid cost of developing your own similar solution</p>
+              <br>
+              <br>
+              <a href="#about" class="get-started-btn scrollto" target="">View Pricing</a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+            <div class="icon-box">
+              <div><img class="grid-image" src="../../assets/homeimages/providers/whatsappbiz.png" alt="Twilio" width="50" height="50"></div><br>
+              <h4><a href="">WhatsApp</a></h4>
+              <p>Avail yourself of this self service online portal to configure your WhatsApp Business account.</p>
+              <br>
+              <br>
+              <a href="#about" class="get-started-btn scrollto" target="">View Pricing</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Service Providers Section -->
+
+    <!-- ======= Cta Section ======= -->
+    <section id="cta" class="cta">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-9 text-center text-lg-left">
+        </div>
+          <div class="col-lg-3 cta-btn-container text-center">
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Cta Section -->
+
+    <!-- ======= Features Section ======= -->
+    <section id="features" class="features">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Features</h2>          
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 order-2 order-lg-1">
+            <div class="icon-box mt-5 mt-lg-0">
+              <i class="bx bx-receipt"></i>
+              <h4>Upload Contacts</h4>
+              <p>Upload contact information from CSV and with up to 10 custom attributes per contact.</p>
+            </div>
+            <div class="icon-box mt-5">
+              <i class="bx bx-user-plus"></i>
+              <h4>One Account, Multiple Users</h4>
+              <p>Add up to 15 users to your account.</p>
+            </div>
+            <div class="icon-box mt-5">
+              <i class="bx bx-calendar"></i>
+              <h4>Scheduler</h4>
+              <p>Create a schedule for when sms or voice messages should be sent to your contacts.</p>
+            </div>
+            <div class="icon-box mt-5">
+              <i class="bx bx-building-house"></i>
+              <h4>Enterprise Usage</h4>
+              <p>Integrate for enterprise wide usage using your Azure Active Directory tenant.</p>
+            </div>
+          </div>
+          <div class="image col-lg-6 order-1 order-lg-2" style='background-image: url("assets/homeimages/features.jpg");'></div>
+        </div>
+      </div>
+    </section><!-- End Features Section -->
+
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts">
+      <div class="container">
+
+        <div class="text-center title">
+          <h3>Saving you time from building it from yourself</h3>
+        </div>
+      </div>
+    </section><!-- End Counts Section -->
+
+    <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+      <div class="container"> 
+        <div class="section-title">
+          <h2>Pricing</h2>
+        </div>
+
+        <div class="row" style="padding-left: 13%;">
+              <div class="col-lg-5 col-md-6 text-center" *ngFor="let subscriptiontype of subscriptionTypes">
+                  <div class="box" *ngIf="subscriptiontype.price === 0">
+                      <h3>Trial</h3>
+                      <h4><sup>€</sup>{{subscriptiontype.price}} <span>{{subscriptiontype.periodInDays}} Days</span></h4>
+                      <ul>
+                        <li>1 User</li>
+                        <li>Add only 2 contacts</li>
+                        <li>Only 5 transactions</li>
+                        <li>Only 1 service provider</li>
+                      </ul>
+                      <div class="btn-wrap mt-4 pricing-btn">
+                        <a href="#signup" data-priceoption="trialOption" class="btn-buy">Sign Up</a>
+                      </div>
+                  </div>
+                  <div class="box" *ngIf="subscriptiontype.price > 0">
+                      <h3>Paid</h3>
+                      <h4><sup>€</sup>{{subscriptiontype.price}}<span> / month</span></h4>
+                      <ul>
+                        <li>Add up to 15 users per account</li>
+                        <li>Add up to 500 contacts</li>
+                        <li>Multi Service Providers</li>
+                        <li>Schedule sms and voice messages</li>
+                      </ul>
+                      <div  class="btn-wrap mt-4 pricing-btn">
+                        <a href="#signup" data-priceoption="paidOption" class="btn-buy">Sign up</a>
+                      </div>
+                  </div>                   
+              </div>         
+        </div>      
+      </div>
+    </section><!-- End Pricing Section -->
+
+    <!-- ======= Sign Up Section ======= -->
+    <section id="signup" class="signup">
+      <div class="container">
+        
+        <div class="section-title mt-3">
+          <h2>Sign Up</h2>          
+        </div>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="responseMessage.successMessage">
+          <strong>{{responseMessage.successMessage}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form novalidate [formGroup]="registerForm" (ngSubmit)="createAccount()">
+          <div class="form-row">
+            <div class="col-md-5 form-group">
+              <input type="text" class="form-control" formControlName="firstName" placeholder="First Name"/>
+            </div>
+            <div class="col-md-2 form-group">
+              <span class="text-danger">*</span>
+            </div>
+            <div class="col-md-5 form-group">
+              <input type="text"  class="form-control" formControlName="lastName" placeholder="Last Name"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-5 form-group">
+              <input type="email" class="form-control" formControlName="emailAddress" placeholder="Email Address"/>
+              <div class="validate text-danger">{{ emailValidationMessage }}</div>
+            </div>
+            <div class="col-md-2 form-group">
+              <span class="text-danger">*</span>
+            </div>
+            <div class="col-md-5 form-group">
+              <input type="text" class="form-control" formControlName="company" placeholder="Company"/>
+            </div>
+          </div>
+          <div class="form-row" formGroupName="passwordGroup">
+            <div class="col-md-5 form-group">
+              <input type="password" formControlName="password" class="form-control" placeholder="Password"/>
+              <app-password-strength class="text-center" (passwordStrength)="passwordValid($event)" [passwordToCheck]="registerForm.get('passwordGroup.password').value"></app-password-strength>
+              <div class="validate text-danger">{{invalidPasswordMessage}}</div>
+            </div>
+            <div class="col-md-2 form-group">
+              <span class="text-danger">*</span>
+            </div>
+            <div class="col-md-5 form-group">
+              <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password" />
+              <div class="validate text-danger">{{passwordMismatchMessage}}</div>
+            </div>
+          </div>     
+          <div class="row text-center mb-4" formGroupName="subscriptionTypeGroup"> 
+            <div class="form-check col-lg-6 col-md-6" *ngFor="let subscriptiontype of subscriptionTypes; let i = index">
+              <input id="trialSubId"  *ngIf="subscriptiontype.price === 0" formControlName="trialSubscriptionType" (click)="setSubscriptionType('trial')" class="form-check-input" type="checkbox">
+              <input id="paidSubId"  *ngIf="subscriptiontype.price > 0" formControlName="paidSubscriptionType" (click)="setSubscriptionType('paid')" class="form-check-input" type="checkbox">
+              <label class="form-check-label mr-2" for="subscriptionChoice">
+                {{subscriptiontype.name}} 
+              </label>   
+            </div>
+          </div> 
+          <div class="validate text-center text-danger" *ngIf="!registerForm.get('subscriptionTypeGroup.trialSubscriptionType').value && !registerForm.get('subscriptionTypeGroup.paidSubscriptionType').value">Please select a subscription</div>
+          <br>  
+          <div class="text-center"> <input class="form-check-input" type="checkbox" formControlName="termsAndPrivacy">
+            <label class="form-check-label mr-2" for="termsAndPrivacy">
+              I accept the <a href="#">Terms</a> and <a href="#">Privacy</a> statements. 
+            </label>  
+          </div>
+          <br>        
+          <div class="text-center"><button [disabled]="!registerForm.valid" class="btn btn-lg btn-outline-primary col-lg-2" type="submit">Sign Up</button></div>
+          <br>                   
+          <div class="validate text-danger text-center">{{responseMessage.errorMessage}}</div>
+       </form>     
+      </div>
+    </section><!-- Sign Up Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+        </div>
+      </div>
+      <div class="container">
+
+        <div class="row mt-2">
+
+          <div class="col-lg-4">
+            <div class="info">             
+              <div class="email">
+                <i class="ri-mail-line"></i>
+                <h4>Email:</h4>
+                <p>info@traviscomms.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="ri-phone-line"></i>
+                <h4>Call:</h4>
+                <p>+1 5589 55488 55s</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="form-row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  <div class="validate"></div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                  <div class="validate"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                <div class="validate"></div>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                <div class="validate"></div>
+              </div>
+              <div class="mb-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit" class="btn btn-lg btn-outline-primary col-lg-4">Send Message</button></div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <app-home-footer></app-home-footer>
+
+  <div id="preloader"></div>
 
 
-</div> <!-- main page wrapper -->		
-<!-- </body>
-</html> -->

@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { CommonValidators } from '../common/common-validators';
-import { ValidatorMessages } from '../common/validator-messages';
+import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SubscriptionType } from '../models/subscriptiontype';
-import { SubscriptionTypeService } from '../subscriptionypes/subscriptiontype.service';
-import { AccountHolder } from '../models/accountholder';
-import { RegisterService } from '../register/register-service.service';
+import { SubscriptionTypeService } from '../subscriptiontype/subscriptiontype.service';
 import { ResponseMessage } from '../models/responsemessage';
+import { AccountHolder } from '../models/account-holder';
+import { CommonValidators } from '../common/common-validators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ValidatorMessages } from '../common/validator-messages';
+import { RegisterService } from '../register/register.service';
+import { AuthService } from '../core/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from '../core/auth-service.component.ts';
+
+declare var $: any;
 
 function subscriptionSelectionCheck(
   c: AbstractControl
@@ -30,7 +32,7 @@ function subscriptionSelectionCheck(
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
   registerForm: FormGroup;
@@ -42,30 +44,32 @@ export class HomePageComponent implements OnInit {
   invalidPasswordMessage: string;
 
   tmp = false;
-  // tslint:disable-next-line: ban-types
-  toggleLoader: Boolean = false;
     // output
   isPasswordValid = false;
-  // tslint:disable-next-line: ban-types
   isLoggedIn = false;
 
-  // tslint:disable-next-line: variable-name
-  constructor(private _fb: FormBuilder,
-              // tslint:disable-next-line: variable-name
-              private _registerService: RegisterService,
-              // tslint:disable-next-line: variable-name
-              private _subscriptionTypeService: SubscriptionTypeService,
-              // tslint:disable-next-line: variable-name
-              private _snackBar: MatSnackBar,
-              // tslint:disable-next-line: variable-name
-              private _authService: AuthService) {
-this._authService.loginChanged.subscribe(loggedIn => {
-  this.isLoggedIn = loggedIn;
-});
 
+  constructor(private _fb: FormBuilder,
+              private _subscriptionTypeService: SubscriptionTypeService,
+              private _registerService: RegisterService,
+              private _authService: AuthService) {
+
+    this._authService.loginChanged.subscribe(loggedIn => {
+    this.isLoggedIn = loggedIn;
+  });
 }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    if ($('#preloader').length) {
+       $('#preloader').show().delay(100).fadeOut();
+    }
+
+     $('#preloader').show();
+      // for login status check
+   this._authService.isLoggedIn().then(loggedIn => {
+    this.isLoggedIn = loggedIn;
+  });
+
     this.registerForm = this._fb.group({
       firstName: ['', Validators.required],
       lastName: [''],
@@ -83,7 +87,8 @@ this._authService.loginChanged.subscribe(loggedIn => {
           ),
         }
       ),
-      subscriptionTypeGroup: this.buildSubscriptionTypes()
+      subscriptionTypeGroup: this.buildSubscriptionTypes(),
+      termsAndPrivacy: [false, Validators.requiredTrue]
     });
 
       // get available subscription types
@@ -113,14 +118,10 @@ this._authService.loginChanged.subscribe(loggedIn => {
       CommonValidators.setValidationMessage(passwordFormControl, ValidatorMessages.getAccountFormValidationMessages());
   });
 
-    // for login status check
-    this._authService.isLoggedIn().then(loggedIn => {
-      this.isLoggedIn = loggedIn;
-    });
   }
 
 
-  ////// Functions
+   ////// Functions
 
   // submit registration form
   async createAccount() {
@@ -128,14 +129,14 @@ this._authService.loginChanged.subscribe(loggedIn => {
 
       let accountHolder = Object.assign({}, this.newAccountHolder, this.registerForm.value);
       accountHolder = this.buildAccountHolderValue(accountHolder);
-      this.toggleLoader = CommonValidators.showLoader();
+      $('#preloader').show();
       this._registerService.registerAccountHolder(accountHolder).subscribe(
       async message => await this.onCreateAccountComplete(message),
       async error => await this.onCreateAccountError(error));
     }
   }
 
-   // set object to submit to form
+    // set object to submit to form
    // tslint:disable-next-line: variable-name
    buildAccountHolderValue(_accountHolder: AccountHolder): AccountHolder {
     if (this.registerForm.get('subscriptionTypeGroup.trialSubscriptionType').value) {
@@ -148,20 +149,20 @@ this._authService.loginChanged.subscribe(loggedIn => {
     return _accountHolder;
   }
 
-  // initialize subscription type values
-  buildSubscriptionTypes(): FormGroup {
-    return this._fb.group(
-      {
-        trialSubscriptionType: true,
-        trialSubscriptionId: CommonValidators.emptyGuid,
-        paidSubscriptionType: false,
-        paidSubscriptionId: CommonValidators.emptyGuid
-      },
-      { validators: subscriptionSelectionCheck }
-    );
-  }
+    // initialize subscription type values
+    buildSubscriptionTypes(): FormGroup {
+      return this._fb.group(
+        {
+          trialSubscriptionType: true,
+          trialSubscriptionId: CommonValidators.emptyGuid,
+          paidSubscriptionType: false,
+          paidSubscriptionId: CommonValidators.emptyGuid
+        },
+        { validators: subscriptionSelectionCheck }
+      );
+    }
 
-   // update subscription types when a selection is made
+  // update subscription types when a selection is made
   // to allow only one is selected at a time from form
   setSubscriptionType(selectedSubType: string) {
     if (selectedSubType === 'trial') {
@@ -175,20 +176,20 @@ this._authService.loginChanged.subscribe(loggedIn => {
     }
   }
 
-   // update subscription type id when http get is complete
-   updateSubscriptionTypeIds() {
-    this.subscriptionTypes.forEach(subscriptionType => {
-       if (subscriptionType.price > 0) {
-        this.registerForm.get('subscriptionTypeGroup').patchValue({
-          paidSubscriptionId: subscriptionType.subscriptionTypeId,
-        });
-       } else {
-        this.registerForm.get('subscriptionTypeGroup').patchValue({
-          trialSubscriptionId: subscriptionType.subscriptionTypeId,
-        });
-       }
-    });
-  }
+     // update subscription type id when http get is complete
+     updateSubscriptionTypeIds() {
+      this.subscriptionTypes.forEach(subscriptionType => {
+         if (subscriptionType.price > 0) {
+          this.registerForm.get('subscriptionTypeGroup').patchValue({
+            paidSubscriptionId: subscriptionType.subscriptionTypeId,
+          });
+         } else {
+          this.registerForm.get('subscriptionTypeGroup').patchValue({
+            trialSubscriptionId: subscriptionType.subscriptionTypeId,
+          });
+         }
+      });
+    }
 
     // for password strength indicator
     passwordValid(event) {
@@ -197,7 +198,7 @@ this._authService.loginChanged.subscribe(loggedIn => {
       this.registerForm.get('passwordGroup.password').updateValueAndValidity();
     }
 
-      // complete create account
+  // complete create account
   onCreateAccountComplete(message: ResponseMessage) {
     this.responseMessage = message;
     this.registerForm.patchValue({
@@ -205,17 +206,16 @@ this._authService.loginChanged.subscribe(loggedIn => {
       lastName: '',
       emailAddress: null,
       passwordGroup: { password: '', confirmPassword: '' },
-      paidSubscriptionType: false,
-      trialSubscriptionType: true
     });
     this.registerForm.markAsPristine();
     this.registerForm.markAsUntouched();
-    this.toggleLoader = CommonValidators.hideLoader();
-    CommonValidators.openSnackBar(this._snackBar, this.responseMessage.successMessage);
+    this.registerForm.reset();
+    $('#trialSubId').click();
+    $('#preloader').hide();
   }
 
-  // complete create account hhtp response error
-  async onCreateAccountError(error: any) {
+   // complete create account hhtp response error
+   async onCreateAccountError(error: any) {
     if (error instanceof HttpErrorResponse) {
       if (error.error.errorMessage) {
         this.responseMessage.errorMessage = error.error.errorMessage;
@@ -223,13 +223,15 @@ this._authService.loginChanged.subscribe(loggedIn => {
         this.responseMessage.errorMessage = CommonValidators.internalServerError;
       }
     }
-    this.toggleLoader = CommonValidators.hideLoader();
+    $('#preloader').hide();
   }
 
   login() {
     this._authService.login();
   }
 
-  
+  logout() {
+    this._authService.logout();
+  }
 
 }

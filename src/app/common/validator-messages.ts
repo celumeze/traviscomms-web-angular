@@ -6,5 +6,5 @@ export class ValidatorMessages {
             invalidPassword: 'Should contain numbers, upper & lower case letters and symbols'
         };
         return validationMessages;
-    } 
+    }
 }
