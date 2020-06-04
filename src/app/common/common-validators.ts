@@ -1,8 +1,15 @@
+
 import { ValidatorFn, AbstractControl } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
-// import { LoadingController, ToastController } from '@ionic/angular';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class CommonValidators {
+
+    // error messages
+    public static internalServerError = 'An error occured. Please try again';
+    public static emptyGuid = '00000000-0000-0000-0000-000000000000';
+    public static isLoaderShown = false;
+
+
   public static textInputMatch(
     textInput1: string,
     textInput2: string,
@@ -32,6 +39,7 @@ export class CommonValidators {
          };
   }
 
+
   public static setValidationMessage(
     c: AbstractControl,
     validationMessagesObj: { [key: string]: string }
@@ -53,34 +61,4 @@ export class CommonValidators {
     return this.isLoaderShown;
 }
 
-public static openSnackBar(matSnackBar: MatSnackBar, message: string) {
-       matSnackBar.open(message, "Close", {
-           duration: 4000
-       });
-}
-
-  ///for page loading spinner (Ionic)
-//   public static async presentLoading(loadingController: LoadingController): Promise<HTMLIonLoadingElement> {
-//     const loading = await loadingController.create({
-//       message: 'Please wait...',
-//     });
-//     await loading.present();
-//     return loading;    
-//   }
-
-  //for message
-
-  //for displaying success toast message
-  //public static async showToaster(/*toastController: ToastController,*/ message: string) {
-    // const toast = await toastController.create({
-    //   message: message,
-    //   duration: 4000
-    // });
-    // toast.present();
-    // }
-
-    //error messages
-    public static internalServerError: string = "An error occured. Please try again";
-    public static emptyGuid = "00000000-0000-0000-0000-000000000000";
-    public static isLoaderShown = false;
 }

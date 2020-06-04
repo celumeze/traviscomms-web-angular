@@ -3,7 +3,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChange, Output, EventEmitter
 @Component({
   selector: 'app-password-strength',
   templateUrl: './password-strength.component.html',
-  styleUrls: ['./password-strength.component.css'],
+  styleUrls: ['./password-strength.component.scss'],
 })
 export class PasswordStrengthComponent implements OnChanges {
   @Input() public passwordToCheck: string;
