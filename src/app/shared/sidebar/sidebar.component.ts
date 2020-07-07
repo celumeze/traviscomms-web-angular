@@ -59,7 +59,6 @@ export class SidebarComponent implements OnInit {
 
 
   logout() {
-    console.log(this.isLoggedIn);
     this.authService.logout();
   }
 }
