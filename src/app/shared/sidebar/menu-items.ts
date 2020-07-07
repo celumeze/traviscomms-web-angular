@@ -2,13 +2,13 @@ import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
 	{
-		path: '',
-		title: 'Personal',
-		icon: 'mdi mdi-dots-horizontal',
-		class: 'nav-small-cap',
-		extralink: true,
+		path: '/apps/contact-grid',
+		title: 'Contacts',
+		icon: 'mdi mdi-account-box',
+		class: '',
 		label: '',
 		labelClass: '',
+		extralink: false,
 		submenu: []
 	},
 	{
@@ -151,17 +151,7 @@ export const ROUTES: RouteInfo[] = [
     		labelClass: '',
 		extralink: false,
 	        submenu: []
-	    },
-	    {
-	        path: '/apps/contact-grid',
-	        title: 'Contact Grid',
-	        icon: 'mdi mdi-phone',
-	        class: '',
-	        label: '',
-    		labelClass: '',
-		extralink: false,
-	        submenu: []
-	    },
+	    },	
 	    {
 	        path: '',
 	        title: 'Ticket',

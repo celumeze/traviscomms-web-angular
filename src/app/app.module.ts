@@ -34,6 +34,7 @@ import { PasswordStrengthComponent } from './password-strength/password-strength
 import { RegisterModule } from './register/register.module';
 import { CoreModule } from './core/core.module';
 import { HomeFooterComponent } from './home-footer/home-footer.component';
+import { ContactInfoModule } from './contactinfo/contactinfo.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -68,6 +69,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     Ng2SearchPipeModule,
     PerfectScrollbarModule,
     SubscriptionTypeModule,
+    ContactInfoModule,
     RegisterModule,
     NgMultiSelectDropDownModule.forRoot(),
     AgmCoreModule.forRoot({ apiKey: 'AIzaSyDoliAneRffQDyA7Ul9cDk3tLe7vaU4yP8' }),

@@ -31,12 +31,11 @@
   <section id="hero" class="d-flex flex-column justify-content-center">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-xl-8">
+        <div class="col-xl-8">  
           <h1>Self Service Multi Provider Contact Management Portal</h1><br>
           <h2>Cloud hosted solution to power the consumption of your cloud communications provider such as Twilio, Vonage, Unifonic & more</h2>
           <br>
-          <button *ngIf="!isLoggedIn" class="btn btn-lg btn-primary col-lg-4" type="submit" (click)="login()">Log In</button>
-          <button *ngIf="isLoggedIn" class="btn btn-lg btn-primary col-lg-4" type="submit" (click)="logout()">Log Out</button>
+          <button class="btn btn-lg btn-primary col-lg-4" type="submit" (click)="login()">Log In</button>
         </div>
       </div>
     </div>

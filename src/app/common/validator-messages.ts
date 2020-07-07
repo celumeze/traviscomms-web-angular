@@ -7,4 +7,11 @@ export class ValidatorMessages {
         };
         return validationMessages;
     }
+
+    public static getContactFormValidationMessages(): {[key: string]: string} {
+        const validationMessages = {
+            pattern: 'Contact number should contain numbers\n',
+        };
+        return validationMessages;
+    }
 }
