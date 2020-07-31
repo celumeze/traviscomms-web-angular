@@ -7,4 +7,5 @@ export class ContactInfo {
     firstName: string;
     lastName: string;
     contactNumber: string;
+    accountHolderId: string;
 }
