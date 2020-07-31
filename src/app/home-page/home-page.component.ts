@@ -199,7 +199,7 @@ export class HomePageComponent implements OnInit {
     }
 
   // complete create account
-  onCreateAccountComplete(message: ResponseMessage) {
+  async onCreateAccountComplete(message: ResponseMessage) {
     this.responseMessage = message;
     this.registerForm.patchValue({
       firstName: '',

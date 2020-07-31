@@ -7,7 +7,11 @@ export class CommonValidators {
     // error messages
     public static internalServerError = 'An error occured. Please try again';
     public static emptyGuid = '00000000-0000-0000-0000-000000000000';
-    public static isLoaderShown = false;
+    public static  isLoaderShown = false;
+
+    // success messages
+    public static addContactSuccess = 'Contact was successfully added';
+    public static emptyContacts = 'No contact found';
 
 
   public static textInputMatch(

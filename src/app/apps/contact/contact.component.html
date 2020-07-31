@@ -21,7 +21,7 @@
     <div class="card">
       <div class="card-body text-center">
         <img src="{{ c.img }}" class="rounded-circle border p-1" width="100">
-        <h4 class="card-title mt-3 mb-0">{{ c.name }}</h4>
+        <h4 class="card-title mt-3 mb-0">{{ c.firstName }} {{c.lastName}}</h4>
         <small class="text-muted">{{ c.post }}</small>
         <div class="mt-3">
           <button class="btn btn-info">SMS</button>
@@ -35,6 +35,9 @@
     </div>
   </div>
 </div>
+<div class="row justify-content-center" *ngIf='!contacts.length'>
+   <p><b>{{emptyContacts}}</b></p>
+</div>
 <!-- Modal -->
 <ng-template #addContactModal let-modal>
   <div class="modal-header">
@@ -44,6 +47,19 @@
     </button>
   </div>
   <div class="modal-body">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="responseMessage.successMessage">
+      <strong>{{responseMessage.successMessage}}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="responseMessage.errorMessage">
+      <strong>{{responseMessage.errorMessage}}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <br>
     <form [formGroup]="contactForm" (ngSubmit)="addContact()">
       <div class="form-group">
         <label for="contactFirstName">First Name</label>
@@ -61,12 +77,28 @@
            placeholder="Contact Number">   
       </div>  
       <div class="validate text-danger">{{invalidContactNumber}}</div>  
+      <div *ngIf="contactNumber?.errors.minlength || contactNumber?.errors.maxlength" class="validate text-danger">Contact number cannot must be between 1 and 20 characters long</div>
       <br>      
       <div class="form-group">
-        <button type="submit" [disabled]="!contactForm.valid" (click)="addContact(); modal.dismiss('Cross click');"
+        <button type="submit" [disabled]="!contactForm.valid" *ngIf="isAddVisible" (click)="addContact();"
           class="btn btn-outline-primary">Add Contact</button>
+          <button type="button" class="btn btn-outline-primary" *ngIf="isLoaderVisible">
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Loading...
+          </button>
       </div>
     </form>
   </div>
 
+</ng-template>
+
+<ng-template #addContactModalLoader let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Contact</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  </div>
 </ng-template>

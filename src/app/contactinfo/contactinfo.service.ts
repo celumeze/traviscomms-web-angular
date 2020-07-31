@@ -21,7 +21,7 @@ export class ContactInfoService {
       return contacts;
   }
 
-  addContact(contactInfo: ContactInfo): Observable<ResponseMessage> {
-    return this._httpClient.post<ResponseMessage>(Constants.apiRoot + 'addContact', contactInfo);
+  addContact(newContact: ContactInfo): Observable<ContactInfo> {
+    return this._httpClient.post<ContactInfo>(Constants.apiRoot + 'contact', newContact);
   }
 }

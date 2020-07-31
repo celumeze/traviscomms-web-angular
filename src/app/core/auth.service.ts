@@ -17,7 +17,7 @@ export class AuthService {
       authority: Constants.idpServer,
       client_id: Constants.clientId,
       redirect_uri: `${Constants.clientRoot}signin-callback`,
-      scope: 'openid profile traviscomms-api subscriptiontype accountholderrole',
+      scope: 'openid profile traviscomms-api',
       response_type: 'code',
       post_logout_redirect_uri: `${Constants.clientRoot}signout-callback`
     };
@@ -56,6 +56,16 @@ completeLogout() {
     this._user = null;
     this._loginChangedSubject.next(false);
     return this._userManager.signoutRedirectCallback();
+}
+
+getAccessToken() {
+return this._userManager.getUser().then(user => {
+    if (!!user && !user.expired) {
+      return user.access_token;
+    } else {
+       return null;
+    }
+});
 }
 
 }
