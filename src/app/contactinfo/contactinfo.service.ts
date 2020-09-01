@@ -24,4 +24,8 @@ export class ContactInfoService {
   addContact(newContact: ContactInfo): Observable<ContactInfo> {
     return this._httpClient.post<ContactInfo>(Constants.apiRoot + 'contact', newContact);
   }
+
+  updateContact(editContact: ContactInfo): Observable<ContactInfo> {
+    return this._httpClient.patch<ContactInfo>(Constants.apiRoot + 'editcontact', editContact);
+  }
 }

@@ -11,6 +11,7 @@ export class CommonValidators {
 
     // success messages
     public static addContactSuccess = 'Contact was successfully added';
+    public static editContactSuccess = 'Contact was successfully updated';
     public static emptyContacts = 'No contact found';
 
 

@@ -4,6 +4,7 @@ export class ContactInfo {
         this.lastName = '';
         this.contactNumber = '';
     }
+    id: string;
     firstName: string;
     lastName: string;
     contactNumber: string;
