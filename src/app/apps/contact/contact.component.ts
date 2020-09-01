@@ -10,21 +10,27 @@ import { ResponseMessage } from 'src/app/models/responsemessage';
 import { CommonValidators } from 'src/app/common/common-validators';
 import { ValidatorMessages } from 'src/app/common/validator-messages';
 import { HttpErrorResponse } from '@angular/common/http';
+import { id } from 'date-fns/locale';
 
 @Component({
     templateUrl: './contact.component.html'
 })
 export class ContactComponent implements OnInit {
     closeResult: string;
+    modalTitle: string;
     contacts: ContactInfo[] = [];
     newContactInfo = new ContactInfo();
     searchText: any;
     contactForm: FormGroup;
     invalidContactNumber: string;
+    currentlySelectedContact: ContactInfo;
     responseMessage = new ResponseMessage();
     isAddVisible = true;
     isLoaderVisible = false;
+    isEditVisible = false;
+    isSpinnerVisible = false;
     emptyContacts = CommonValidators.emptyContacts;
+
 
     constructor(private modalService: NgbModal,
                 private _fb: FormBuilder,
@@ -32,11 +38,38 @@ export class ContactComponent implements OnInit {
                 }
 
     open(content) {
-        this.modalService.open(content, { size: 'lg', centered: true, });
+        this.modalService.open(content, { size: 'lg', centered: true});
+        this.contactForm.patchValue({
+            Id: [''],
+            firstName: [''],
+            lastName: [''],
+            contactNumber: ['']
+          });
+          this.isAddVisible = true;
+          this.isEditVisible = false;
+          this.modalTitle = 'Add Contact';
+          this.responseMessage = new ResponseMessage();
+          this.currentlySelectedContact = null;
+    }
+
+    openEditModal(content, c: ContactInfo) {
+        this.modalService.open(content, { size: 'lg', centered: true});
+        this.contactForm.patchValue({
+            Id: c.id,
+            firstName: c.firstName,
+            lastName: c.lastName,
+            contactNumber: c.contactNumber
+          });
+          this.modalTitle = 'Update Contact';
+          this.isAddVisible = false;
+          this.isEditVisible = true;
+          this.responseMessage = new ResponseMessage();
+          this.currentlySelectedContact = c;
     }
 
     ngOnInit() {
         this.contactForm = this._fb.group({
+            Id: [''],
             firstName: [''],
             lastName: [''],
             contactNumber: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('^[0-9]*$')]],
@@ -54,9 +87,13 @@ export class ContactComponent implements OnInit {
 
     async getContacts() {
         // tslint:disable-next-line: no-shadowed-variable
+        this.isSpinnerVisible = true;
+        // tslint:disable-next-line: no-shadowed-variable
         this._contactInfoService.getContacts().subscribe(contacts => {
             this.contacts = contacts;
-        });
+            this.isSpinnerVisible = false;
+        },
+        async error => await this.onGetContactsError(error));
     }
 
     async addContact() {
@@ -73,6 +110,23 @@ export class ContactComponent implements OnInit {
 
         }
     }
+
+    async editContact() {
+        if (this.contactForm.dirty && this.contactForm.valid) {
+           const editContact = this.contactForm.value;
+           this.isEditVisible = false;
+           this.isLoaderVisible = true;
+           this._contactInfoService.updateContact(editContact).subscribe(
+               async contact =>  {
+                await this.onEditContactComplete(contact);
+               },
+               async error => await this.onEditContactError(error)
+           );
+
+        }
+    }
+
+
     async onAddContactComplete(newContactInfo: ContactInfo) {
         this.contacts.push(newContactInfo);
         this.responseMessage.errorMessage = '';
@@ -84,6 +138,19 @@ export class ContactComponent implements OnInit {
         this.isLoaderVisible = false;
 
     }
+
+    async onEditContactComplete(editContactInfo: ContactInfo) {
+        const index = this.contacts.indexOf(this.currentlySelectedContact, 0);
+        if (index > -1) {
+            this.contacts.splice(index, 1, editContactInfo);
+        }
+        this.responseMessage.errorMessage = '';
+        this.responseMessage.successMessage = CommonValidators.editContactSuccess;
+        this.isEditVisible = true;
+        this.isLoaderVisible = false;
+
+    }
+
     async onAddContactError(error: any) {
         this.responseMessage.successMessage = '';
         if (error instanceof HttpErrorResponse) {
@@ -92,6 +159,19 @@ export class ContactComponent implements OnInit {
         this.isAddVisible = true;
         this.isLoaderVisible = false;
     }
+    async onEditContactError(error: any) {
+        this.responseMessage.successMessage = '';
+        if (error instanceof HttpErrorResponse) {
+            this.responseMessage.errorMessage = CommonValidators.internalServerError;
+        }
+        this.isEditVisible = true;
+        this.isLoaderVisible = false;
+    }
+
+    async onGetContactsError(error: any) {
+        this.isSpinnerVisible = false;
+    }
+
     closeAlert() {
         this.responseMessage.errorMessage = '';
         this.responseMessage.successMessage = '';
