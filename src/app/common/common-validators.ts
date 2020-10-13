@@ -11,6 +11,8 @@ export class CommonValidators {
 
     // success messages
     public static addContactSuccess = 'Contact was successfully added';
+    public static uploadContactsSuccess = 'Contacts were successfully uploaded';
+    public static uploadContactSuccess = 'Contact was successfully uploaded';
     public static editContactSuccess = 'Contact was successfully updated';
     public static emptyContacts = 'No contact found';
 
