@@ -6,6 +6,7 @@ import { SubscriptionType } from '../models/subscriptiontype';
 import { Constants } from '../constants';
 import { ContactInfo } from '../models/contact-info';
 import { ResponseMessage } from '../models/responsemessage';
+import { ContactCsvInfo } from '../models/contact-csv-info';
 
 @Injectable({
   providedIn: ContactInfoModule
@@ -23,6 +24,10 @@ export class ContactInfoService {
 
   addContact(newContact: ContactInfo): Observable<ContactInfo> {
     return this._httpClient.post<ContactInfo>(Constants.apiRoot + 'contact', newContact);
+  }
+
+  uploadContacts(contactCsvInfo: FormData): Observable<ContactInfo[]> {
+    return this._httpClient.post<ContactInfo[]>(Constants.apiRoot + 'uploadcontactscsv', contactCsvInfo);
   }
 
   updateContact(editContact: ContactInfo): Observable<ContactInfo> {
