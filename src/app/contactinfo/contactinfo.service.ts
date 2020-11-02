@@ -33,4 +33,13 @@ export class ContactInfoService {
   updateContact(editContact: ContactInfo): Observable<ContactInfo> {
     return this._httpClient.patch<ContactInfo>(Constants.apiRoot + 'editcontact', editContact);
   }
+
+  deleteContacts(lstContacts: ContactInfo[]): Observable<ContactInfo[]> {
+    return this._httpClient.post<ContactInfo[]>(Constants.apiRoot + 'deletecontacts', lstContacts);
+  }
+
+  deleteAllContacts(): Observable<boolean> {
+    return from(this._httpClient.get<boolean>(Constants.apiRoot + 'deleteallcontacts')
+                 .toPromise());
+  }
 }
