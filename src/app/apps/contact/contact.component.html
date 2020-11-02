@@ -9,11 +9,17 @@
           </div>
           <div class="col-md-6 col-lg-9 col-xl-10 text-md-right mt-4 mt-md-0">
             <button class="btn btn-lg btn-outline-primary text-dark" title="Add Contacts" (click)="open(addContactModal)">
-              <i class="fa fa-plus-square"></i></button>
+              <i class="fa fa-plus-square"></i></button>              
+              <button class="btn btn-lg btn-outline-primary text-dark" title="Select Contacts" *ngIf="contacts && contacts.length" (click)="selectAllContacts()">
+                <i class="fa fa-check-circle"></i></button>
+                <button class="btn btn-lg btn-outline-primary text-dark" title="Delete Contacts" *ngIf="isShowDeleteContacts" (click)="openDeleteContactsModal(deleteContactsMessageModal)">
+                  <i class="fa fa-trash"></i></button>
               <button class="btn btn-lg btn-outline-primary text-dark" title="Upload Contacts" (click)="openUploadContact(uploadContactModal)">
                 <i class="fa fa-upload"></i></button> 
               <button class="btn btn-lg btn-outline-primary text-dark" title="Refresh Contacts" (click)="getContacts()">
-                  <i class="fa fa-sync"></i></button>           
+                  <i class="fa fa-sync"></i></button>  
+              <button class="btn btn-lg btn-outline-primary text-dark" *ngIf="contacts && contacts.length" title="Delete All Saved Contacts" (click)="openDeleteAllContactsModal(deleteAllContactsMessageModal)">
+                <i class="fa fa-ban"></i></button>          
           </div>
         </div>
       </div>
@@ -24,12 +30,15 @@
   <div class="col-md-4" *ngFor="let c of contacts | filter:searchText">
     <div class="card">
       <div class="card-body text-center">
-        <img src="{{ c.img }}" class="rounded-circle border p-1" width="100">
-        <h4 class="card-title mt-3 mb-0">{{ c.firstName }} {{c.lastName}}</h4>
-        <small class="text-muted">{{ c.post }}</small>
+        <div class="text-right">
+          <input type="checkbox" class="form-check-input" (click)="toggleContactInfo(c)" [checked]="c.isSelected">       
+          <br>
+        </div>  
+         <br *ngIf="!c.firstName && !c.lastName">  
+        <h4 class="card-title mt-1 mb-0">{{ c.firstName }} {{c.lastName}}</h4>
         <div class="mt-3">
-          <button class="btn btn-outline-primary">SMS</button>
-          <button class="btn btn-light">Call</button>
+          <button class="btn btn-outline-primary" title="SMS">SMS</button>
+          <button class="btn btn-light" title="Phone call">Call</button>
         </div>
         <div class="mt-3 pt-3">
           <address>
@@ -41,7 +50,7 @@
         <button title="edit" class="btn ml-2 btn-md pl-3 text-dark" (click)="openEditModal(addContactModal, c)">
           <i class="fas fa-edit"></i>
         </button> 
-        <button title="delete" class="btn btn-md pl-2 text-dark" (click)="deleteContact(c)">
+        <button title="delete" class="btn btn-md pl-2 text-dark" (click)="openDeleteContactsModalFromContact(deleteContactsMessageModal, c)">
           <i class="fas fa-trash"></i>
         </button> 
       </div>      
@@ -175,7 +184,7 @@
 
 </ng-template>
 
-<ng-template #addContactModalLoader let-modal>
+<!-- <ng-template #addContactModalLoader let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Contact</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -184,6 +193,73 @@
   </div>
   <div class="modal-body">
   </div>
-</ng-template>
+</ng-template> -->
 
+<ng-template #deleteContactsMessageModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="responseMessage.successMessage">
+      <strong>{{responseMessage.successMessage}}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="responseMessage.errorMessage">
+      <strong>{{responseMessage.errorMessage}}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <br>
+    <div class="text-center" *ngIf="isLoaderVisible">
+      <span class="spinner-grow text-primary spinner-grow-lg" role="status" aria-hidden="true"></span>    
+    </div>
+    <div *ngIf="isDeleteMessageVisible">
+      <p class="text-center" *ngIf="isMultipleContactsSelected">Are you sure you want to delete selected contacts?</p>
+      <p class="text-center" *ngIf="isSingleContactSelected">Are you sure you want to delete selected contact?</p>
+      <div class="form-group text-center">
+        <button type="button" class="btn btn-outline-primary mr-3" (click)="deleteSelectedContacts()">Yes</button>     
+        <button type="button" class="btn btn-outline-primary" (click)="modal.dismiss()">No</button>         
+      </div>
+    </div>  
+  </div>
+</ng-template> 
 
+<ng-template #deleteAllContactsMessageModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Delete All Contacts</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="responseMessage.successMessage">
+      <strong>{{responseMessage.successMessage}}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="responseMessage.errorMessage">
+      <strong>{{responseMessage.errorMessage}}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <br>
+    <div class="text-center" *ngIf="isLoaderVisible">
+      <span class="spinner-grow text-primary spinner-grow-lg" role="status" aria-hidden="true"></span>    
+    </div>
+    <div *ngIf="isDeleteAllMessageVisible">
+        <p class="text-center">Are you sure you want to delete all saved contact?</p>
+        <div class="form-group text-center">
+          <button type="button" class="btn btn-outline-primary mr-3" (click)="deleteAllSavedContact()">Yes</button>     
+          <button type="button" class="btn btn-outline-primary" (click)="modal.dismiss()">No</button>   
+      </div>
+    </div>    
+  </div>
+</ng-template> 
